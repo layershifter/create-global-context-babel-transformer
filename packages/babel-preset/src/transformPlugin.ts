@@ -1,11 +1,12 @@
 import type { NodePath, PluginObj, PluginPass, types as t } from '@babel/core';
-import babel from '@babel/core';
+import { types } from '@babel/core';
 import { declare } from '@babel/helper-plugin-utils';
 
 import { BabelPluginOptions } from './types';
 import { validateOptions } from './validateOptions';
 import { findUpSync } from 'find-up';
 import { dirname } from 'path';
+import { readFileSync } from 'fs';
 
 type BabelPluginState = PluginPass & {
   importDeclarationPaths?: NodePath<t.ImportDeclaration>[];
@@ -28,28 +29,28 @@ function isCreateContextCallee(
 }
 
 function createGlobalContextImportDeclaration() {
-  return babel.types.importDeclaration(
+  return types.importDeclaration(
     [
-      babel.types.importSpecifier(
-        babel.types.identifier('__createGlobalContext'),
-        babel.types.identifier('createContext'),
+        types.importSpecifier(
+        types.identifier('__createGlobalContext'),
+        types.identifier('createContext'),
       ),
     ],
-    babel.types.stringLiteral('@fluentui/global-context'),
+    types.stringLiteral('@fluentui/global-context'),
   );
 }
 
-function createGlobalContextCallExpression(expressionPath: NodePath<t.CallExpression>) {
+function createGlobalContextCallExpression(expressionPath: NodePath<t.CallExpression>, packageJson: Record<string, string>) {
   const args = expressionPath.get('arguments').map(arg => arg.node);
   if (!expressionPath.parentPath.isVariableDeclarator()) {
     return expressionPath.node;
   }
   const id = expressionPath.parentPath.get('id') as NodePath<babel.types.Identifier>;
-  return babel.types.callExpression(babel.types.identifier('__createGlobalContext'), [
+  return types.callExpression(types.identifier('__createGlobalContext'), [
     ...args,
-    babel.types.stringLiteral(id.node.name),
-    babel.types.stringLiteral('packageName'),
-    babel.types.stringLiteral('1.0.0'),
+    types.stringLiteral(id.node.name),
+    types.stringLiteral(packageJson.name),
+    types.stringLiteral(packageJson.version),
   ]);
 }
 
@@ -98,7 +99,7 @@ export const transformPlugin = declare<Partial<BabelPluginOptions>, PluginObj<Ba
           const cwd = dirname(state.filename!);
           const result = findUpSync('package.json', { cwd });
 
-          console.log(result);
+          const packageJson = JSON.parse(readFileSync(result).toString());
 
           if (state.importDeclarationPaths!.length === 0 && !state.requireDeclarationPath) {
             return;
@@ -108,7 +109,7 @@ export const transformPlugin = declare<Partial<BabelPluginOptions>, PluginObj<Ba
           // substitutes expressions of react createContext to global context
           if (state.expressionPaths) {
             for (const expressionPath of state.expressionPaths) {
-              expressionPath.replaceWith(createGlobalContextCallExpression(expressionPath));
+              expressionPath.replaceWith(createGlobalContextCallExpression(expressionPath, packageJson));
             }
           }
         },

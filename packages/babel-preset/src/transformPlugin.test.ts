@@ -1,10 +1,6 @@
 import pluginTester, { prettierFormatter } from 'babel-plugin-tester';
 import * as fs from 'fs';
 import * as path from 'path';
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
 
 import { transformPlugin } from './transformPlugin';
 

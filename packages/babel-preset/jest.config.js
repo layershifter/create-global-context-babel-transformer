@@ -1,20 +1,11 @@
 export default {
   displayName: 'babel-preset',
-  globals: {
-    'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.spec.json',
-      useESM: true,
-    },
-  },
   extensionsToTreatAsEsm: ['.ts'],
-  preset: 'ts-jest',
   testEnvironment: 'node',
+  transformIgnorePatterns: ["/node_modules/(?!(find-up|locate-path|p-locate|p-limit|yocto-queue|path-exists)/)"],
   transform: {
-    '^.+\\.[tj]sx?$': 'ts-jest',
-    // 'node_modules/find-up/.+\\.(j|t)sx?$': 'ts-jest',
-    // 'node_modules/locate-path/.+\\.(j|t)sx?$': 'ts-jest',
+    '^.+\\.[tj]sx?$': 'babel-jest',
   },
-  // transformIgnorePatterns: ['node_modules/(?!find-up/.*)', 'node_modules/(?!locate-path/.*)'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   coverageDirectory: '../../coverage/packages/babel-preset',
 };
