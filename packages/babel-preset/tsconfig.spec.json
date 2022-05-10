@@ -1,0 +1,23 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "jsx": "react",
+    "outDir": "../../dist/out-tsc",
+    "module": "ESNext",
+    "esModuleInterop": true,
+    "types": ["node", "@types/jest"]
+  },
+  "include": [
+    "__fixtures__/**/code.ts",
+    "__fixtures__/**/fixture.ts",
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    "**/*.test.tsx",
+    "**/*.spec.tsx",
+    "**/*.test.js",
+    "**/*.spec.js",
+    "**/*.test.jsx",
+    "**/*.spec.jsx",
+    "**/*.d.ts"
+  ]
+}
