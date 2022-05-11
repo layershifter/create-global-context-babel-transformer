@@ -1,1 +1,1 @@
-console.log("Hello World!");
+export { webpackLoader as default } from './webpackLoader';

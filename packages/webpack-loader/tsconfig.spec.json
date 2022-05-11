@@ -2,7 +2,7 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "jsx": "react",
-    "types": ["node", "@types/jest"],
+    "types": ["jest", "node"],
     "composite": true
   },
   "include": [
@@ -17,5 +17,5 @@
     "src/**/*.d.ts"
   ],
   "exclude": ["__fixtures__"],
-  "references": [{ "path": "./tsconfig.lib.json" }, { "path": "../global-context" }]
+  "references": [{ "path": "./tsconfig.lib.json" }]
 }

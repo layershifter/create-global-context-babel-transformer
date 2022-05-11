@@ -2,20 +2,26 @@
   "compileOnSave": false,
   "compilerOptions": {
     "rootDir": ".",
-    "sourceMap": true,
-    "declaration": false,
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "moduleResolution": "Node",
+    "noImplicitAny": true,
+    "strict": true,
     "importHelpers": true,
-    "target": "es2017",
-    "module": "esnext",
-    "lib": ["es2017", "dom"],
+    "target": "ESNext",
+    "module": "ESNext",
+    "lib": ["ES2017", "DOM"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {},
+    "paths": {
+      "global-context": ["./packages/global-context/src/index.ts"],
+      "global-context-babel-transform": ["./packages/babel-transformer/src/index.ts"]
+    },
+    "outDir": "tsc-out",
     "typeRoots": ["node_modules/@types"]
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": ["node_modules", "__fixtures__", "tsc-out", "dist"]
 }

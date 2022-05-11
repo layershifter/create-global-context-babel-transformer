@@ -87,7 +87,7 @@ export const transformPlugin = declare<Partial<BabelPluginOptions>, PluginObj<Ba
   validateOptions(pluginOptions);
 
   return {
-    name: '@griffel/babel-plugin-transform',
+    name: 'global-context-babel-transformer',
 
     pre() {
       this.importDeclarationPaths = [];

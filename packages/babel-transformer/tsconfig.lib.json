@@ -1,12 +1,8 @@
 {
-  "extends": "./tsconfig.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "module": "ESNext",
-    "outDir": "../../dist/out-tsc",
-    "declaration": true,
-    "esModuleInterop": true,
-    "types": ["node"]
+    "composite": true
   },
   "exclude": ["__fixtures__/**/*", "**/*.spec.ts", "**/*.test.ts"],
-  "include": ["**/*.ts"]
+  "include": ["src/**/*.ts"]
 }

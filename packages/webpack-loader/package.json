@@ -1,24 +1,27 @@
 {
-  "name": "my-webpack-project",
-  "version": "1.0.0",
-  "description": "My webpack project",
+  "name": "@griffel/webpack-loader",
+  "version": "2.0.4",
+  "description": "Webpack loader that performs build time transforms for Griffel",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/microsoft/griffel"
+  },
   "type": "module",
-  "scripts": {
-    "build": "webpack --mode=production --node-env=production",
-    "build:dev": "webpack --mode=development",
-    "build:prod": "webpack --mode=production --node-env=production",
-    "watch": "webpack --watch"
+  "dependencies": {
+    "@babel/core": "^7.12.13",
+    "enhanced-resolve": "^5.8.2",
+    "loader-utils": "^2.0.2",
+    "memfs": "^3.4.1",
+    "prettier": "^2.6.2",
+    "schema-utils": "^3.1.1",
+    "webpack-merge": "^5.8.0"
+  },
+  "peerDependencies": {
+    "webpack": "^5"
   },
   "devDependencies": {
-    "@types/react": "^17.0.45",
-    "@types/react-dom": "^17.0.16",
-    "@webpack-cli/generators": "^2.4.2",
-    "prettier": "^2.6.2",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "ts-loader": "^9.3.0",
-    "typescript": "^4.6.4",
-    "webpack": "^5.72.1",
-    "webpack-cli": "^4.9.2"
+    "@babel/preset-env": "^7.17.10",
+    "@babel/preset-typescript": "^7.16.7"
   }
 }

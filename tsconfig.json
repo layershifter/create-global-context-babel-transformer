@@ -1,17 +1,8 @@
 {
-  "compilerOptions": {
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
-  },
-  "files": [],
-  "include": [],
+  "extends": "./tsconfig.base.json",
   "references": [
-    {
-      "path": "./packages/babel-preset/tsconfig.json"
-    },
+    { "path": "./packages/babel-transformer" },
+    { "path": "./packages/global-context" },
+    { "path": "./packages/webpack-loader" }
   ]
 }
