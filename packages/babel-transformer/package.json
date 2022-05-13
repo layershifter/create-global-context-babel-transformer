@@ -4,6 +4,10 @@
   "description": "Babel transformer to inject globally scoped createContext",
   "license": "MIT",
   "type": "module",
+  "main": "./dist/src/index.js",
+  "scripts": {
+    "build": "tsc -b tsconfig.lib.json"
+  },
   "dependencies": {
     "@babel/generator": "^7.12.13",
     "@babel/helper-plugin-utils": "^7.12.13",
@@ -12,8 +16,6 @@
     "@babel/template": "^7.12.13",
     "@babel/traverse": "^7.12.13",
     "@emotion/hash": "^0.8.0",
-    "@linaria/babel-preset": "^3.0.0-beta.14",
-    "@linaria/shaker": "^3.0.0-beta.14",
     "ajv": "^8.4.0",
     "babel-plugin-tester": "^10.1.0",
     "find-up": "^6.3.0",
@@ -22,16 +24,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.17.10",
-    "@babel/plugin-transform-modules-commonjs": "^7.17.9",
-    "@griffel/react": "^1.0.4",
     "babel-jest": "^28.1.0",
     "jest": "^28.1.0",
     "ts-jest": "^28.0.2"
-  },
-  "peerDependencies": {
-    "@griffel/core": "^1.2.0"
-  },
-  "scripts": {
-    "test": "jest"
   }
 }

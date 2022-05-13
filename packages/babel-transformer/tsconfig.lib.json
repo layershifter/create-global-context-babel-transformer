@@ -1,7 +1,9 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "composite": true
+    "composite": true,
+    "outDir": "dist",
+    "rootDir": "."
   },
   "exclude": ["__fixtures__/**/*", "**/*.spec.ts", "**/*.test.ts"],
   "include": ["src/**/*.ts"]

@@ -1,13 +1,12 @@
 {
-  "name": "@griffel/webpack-loader",
-  "version": "2.0.4",
-  "description": "Webpack loader that performs build time transforms for Griffel",
+  "name": "global-context-loader",
+  "version": "1.0.0",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/microsoft/griffel"
-  },
   "type": "module",
+  "main": "./dist/src/index.js",
+  "scripts": {
+    "build": "tsc -b tsconfig.lib.json"
+  },
   "dependencies": {
     "@babel/core": "^7.12.13",
     "enhanced-resolve": "^5.8.2",
@@ -15,7 +14,8 @@
     "memfs": "^3.4.1",
     "prettier": "^2.6.2",
     "schema-utils": "^3.1.1",
-    "webpack-merge": "^5.8.0"
+    "webpack-merge": "^5.8.0",
+    "global-context-babel-transformer": "1.0.0"
   },
   "peerDependencies": {
     "webpack": "^5"

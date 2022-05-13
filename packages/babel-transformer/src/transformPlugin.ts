@@ -74,13 +74,6 @@ export const transformPlugin = declare<Partial<BabelPluginOptions>, PluginObj<Ba
   const pluginOptions: Required<BabelPluginOptions> = {
     babelOptions: {},
     modules: [{ moduleSource: 'react', importName: 'createContext' }],
-    evaluationRules: [
-      {
-        test: /[/\\]node_modules[/\\]/,
-        action: 'ignore',
-      },
-    ],
-
     ...options,
   };
 

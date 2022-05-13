@@ -1,5 +1,4 @@
 import type { TransformOptions } from '@babel/core';
-import type { EvalRule } from '@linaria/babel-preset';
 
 export type BabelPluginOptions = {
   /** Defines set of modules and imports handled by a transformPlugin. */
@@ -10,7 +9,4 @@ export type BabelPluginOptions = {
    * transformPlugin when parsing and evaluating modules.
    */
   babelOptions?: Pick<TransformOptions, 'plugins' | 'presets'>;
-
-  /** The set of rules that defines how the matched files will be transformed during the evaluation. */
-  evaluationRules?: EvalRule[];
 };

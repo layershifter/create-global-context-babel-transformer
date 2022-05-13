@@ -1,5 +1,3 @@
-import type { Evaluator } from '@linaria/babel-preset';
-
 import { validateOptions } from './validateOptions';
 import { BabelPluginOptions } from './types';
 
@@ -47,14 +45,8 @@ describe('validateOptions', () => {
 
   describe('evaluationRules', () => {
     it('passes on valid options', () => {
-      const noopEvaluator: Evaluator = () => ['foo', null];
-      const pluginOptions: BabelPluginOptions = {
-        evaluationRules: [
-          { action: noopEvaluator },
-          { action: noopEvaluator, test: () => true },
-          { action: 'ignore', test: /foo/ },
-        ],
-      };
+      const noopEvaluator = () => ['foo', null];
+      const pluginOptions: BabelPluginOptions = {};
 
       expect(() => validateOptions(pluginOptions)).not.toThrow();
     });

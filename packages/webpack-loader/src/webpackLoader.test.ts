@@ -47,7 +47,7 @@ async function compileSourceWithWebpack(entryPath: string, options: CompileOptio
     },
     resolve: {
       alias: {
-        'global-context': require.resolve('../../../tsc-out/packages/global-context/src/index.js'),
+        // 'global-context': require.resolve('../../global-context/dist/src/index.js'),
       },
       extensions: ['.js', '.ts'],
     },

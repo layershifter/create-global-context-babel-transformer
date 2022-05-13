@@ -2,9 +2,11 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "types": ["node"],
-    "composite": true
+    "composite": true,
+    "outDir": "dist",
+    "rootDir": "."
   },
   "exclude": ["__fixtures__/**/*.ts", "**/*.spec.ts", "**/*.test.ts"],
   "include": ["src"],
-  "references": [{ "path": "../babel-transformer" }]
+  "references": [{ "path": "../babel-transformer/tsconfig.lib.json" }]
 }

@@ -1,8 +1,8 @@
 {
-  "name": "fluentui-global-context-loader",
-  "version": "1.0.0",
-  "main": "index.js",
-  "type": "module",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "devDependencies": {
     "@types/babel__core": "^7.1.19",
     "@types/babel__generator": "^7.6.4",
@@ -18,20 +18,6 @@
     "@types/webpack": "^5.28.0",
     "@webpack-cli/generators": "^2.4.2",
     "tslib": "^2.4.0",
-    "typescript": "^4.8.0-dev.20220511"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/bsunderhus/create-global-context-babel-transformer.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/bsunderhus/create-global-context-babel-transformer/issues"
-  },
-  "homepage": "https://github.com/bsunderhus/create-global-context-babel-transformer#readme",
-  "description": ""
+    "typescript": "^4.8.0-dev.20220512"
+  }
 }

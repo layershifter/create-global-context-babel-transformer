@@ -1,5 +1,5 @@
 import * as Babel from '@babel/core';
-import preset, { BabelPluginOptions } from 'global-context-babel-transform';
+import preset, { BabelPluginOptions } from 'global-context-babel-transformer';
 
 export type TransformOptions = {
   filename: string;

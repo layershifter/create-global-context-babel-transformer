@@ -1,4 +1,4 @@
-import { configSchema, BabelPluginOptions } from 'global-context-babel-transform';
+import { configSchema, BabelPluginOptions } from 'global-context-babel-transformer';
 import * as enhancedResolve from 'enhanced-resolve';
 import { getOptions } from 'loader-utils';
 import * as path from 'path';

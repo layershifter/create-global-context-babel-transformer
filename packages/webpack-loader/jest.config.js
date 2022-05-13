@@ -7,8 +7,7 @@ export default {
     '^.+\\.[tj]sx?$': 'babel-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
-  coverageDirectory: '../../coverage/packages/babel-preset',
   moduleNameMapper: {
-    'global-context-babel-transform': '<rootDir>/../babel-transformer/src/index.ts',
+    'global-context-babel-transformer': '<rootDir>/../babel-transformer/src/index.ts',
   },
 };
