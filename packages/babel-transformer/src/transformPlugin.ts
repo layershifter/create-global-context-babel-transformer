@@ -36,7 +36,7 @@ function isCreateContextCallee(
 function createGlobalContextImportDeclaration() {
   return types.importDeclaration(
     [types.importSpecifier(types.identifier('__createGlobalContext'), types.identifier('createContext'))],
-    types.stringLiteral('global-context'),
+    types.stringLiteral('@global-context/react'),
   );
 }
 

@@ -1,5 +1,5 @@
 {
-  "name": "global-context",
+  "name": "@global-context/react",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/src/index.js",
