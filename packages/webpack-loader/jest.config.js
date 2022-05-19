@@ -8,6 +8,6 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   moduleNameMapper: {
-    '@global-context/babel-preset': '<rootDir>/../babel-transformer/src/index.ts',
+    '@global-context/babel-preset': '<rootDir>/../babel-preset/src/index.ts',
   },
 };

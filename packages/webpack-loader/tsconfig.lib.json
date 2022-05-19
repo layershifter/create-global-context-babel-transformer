@@ -9,5 +9,5 @@
   },
   "exclude": ["__fixtures__/**/*.ts", "**/*.spec.ts", "**/*.test.ts"],
   "include": ["src"],
-  "references": [{ "path": "../babel-transformer/tsconfig.lib.json" }]
+  "references": [{ "path": "../babel-preset/tsconfig.lib.json" }]
 }
