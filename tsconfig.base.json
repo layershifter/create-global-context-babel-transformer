@@ -18,7 +18,7 @@
     "baseUrl": ".",
     "paths": {
       "global-context": ["./packages/global-context/src/index.ts"],
-      "global-context-babel-transformer": ["./packages/babel-transformer/src/index.ts"],
+      "@global-context/babel-preset": ["./packages/babel-transformer/src/index.ts"],
       "global-context-loader": ["./packages/webpack-loader/src/index.ts"]
     },
     "outDir": "tsc-out",

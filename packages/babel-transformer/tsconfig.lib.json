@@ -3,6 +3,7 @@
   "compilerOptions": {
     "composite": true,
     "outDir": "dist",
+    "module": "commonjs",
     "rootDir": "."
   },
   "exclude": ["__fixtures__/**/*", "**/*.spec.ts", "**/*.test.ts"],

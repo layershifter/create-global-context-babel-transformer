@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   displayName: 'babel-preset',
   extensionsToTreatAsEsm: ['.ts'],
   testEnvironment: 'node',

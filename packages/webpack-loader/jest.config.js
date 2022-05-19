@@ -1,5 +1,5 @@
-export default {
-  displayName: 'babel-preset',
+module.exports = {
+  displayName: 'webpack-loader',
   extensionsToTreatAsEsm: ['.ts'],
   testEnvironment: 'node',
   transformIgnorePatterns: ['/node_modules/(?!(find-up|locate-path|p-locate|p-limit|yocto-queue|path-exists)/)'],
@@ -8,6 +8,6 @@ export default {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   moduleNameMapper: {
-    'global-context-babel-transformer': '<rootDir>/../babel-transformer/src/index.ts',
+    '@global-context/babel-preset': '<rootDir>/../babel-transformer/src/index.ts',
   },
 };

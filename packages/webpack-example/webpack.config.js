@@ -1,8 +1,5 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const y = require('global-context-loader');
-
-console.log(y);
 
 const isProduction = process.env.NODE_ENV == 'production';
 
@@ -26,6 +23,11 @@ const config = {
   ],
   module: {
     rules: [
+      {
+        test: /\.(ts|tsx)$/i,
+        use: ['@global-context/webpack-loader'],
+        exclude: ['/node_modules/'],
+      },
       {
         test: /\.(ts|tsx)$/i,
         use: ['ts-loader'],

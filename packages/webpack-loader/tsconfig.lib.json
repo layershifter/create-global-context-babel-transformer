@@ -4,6 +4,7 @@
     "types": ["node"],
     "composite": true,
     "outDir": "dist",
+    "module": "commonjs",
     "rootDir": "."
   },
   "exclude": ["__fixtures__/**/*.ts", "**/*.spec.ts", "**/*.test.ts"],

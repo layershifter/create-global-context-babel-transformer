@@ -1,8 +1,6 @@
-import { configSchema, BabelPluginOptions } from 'global-context-babel-transformer';
-import * as enhancedResolve from 'enhanced-resolve';
+import { BabelPluginOptions } from '@global-context/babel-preset';
 import { getOptions } from 'loader-utils';
 import * as path from 'path';
-import { validate } from 'schema-utils';
 import * as webpack from 'webpack';
 
 import { transformSync, TransformResult, TransformOptions } from './transformSync';
@@ -53,28 +51,17 @@ export function webpackLoader(
   //   baseDataPath: 'options',
   // });
 
-  // Early return to handle cases when makeStyles() calls are not present, allows to avoid expensive invocation of Babel
+  // Early return to handle cases when createContext() calls are not present, allows to avoid expensive invocation of Babel
   if (!shouldTransformSourceCode(sourceCode, options.modules)) {
     this.callback(null, sourceCode, inputSourceMap);
     return;
   }
 
-  const resolveOptionsDefaults: webpack.ResolveOptions = {
-    conditionNames: ['require'],
-    extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
-  };
   // ⚠ "this._compilation" limits loaders compatibility, however there seems to be no other way to access Webpack's
   // resolver.
   // There is this.resolve(), but it's asynchronous. Another option is to read the webpack.config.js, but it won't work
   // for programmatic usage. This API is used by many loaders/plugins, so hope we're safe for a while
   const resolveOptionsFromWebpackConfig: webpack.ResolveOptions = this._compilation?.options.resolve || {};
-
-  const resolveSync = enhancedResolve.create.sync({
-    ...resolveOptionsDefaults,
-    alias: resolveOptionsFromWebpackConfig.alias,
-    modules: resolveOptionsFromWebpackConfig.modules,
-    plugins: resolveOptionsFromWebpackConfig.plugins,
-  });
 
   let result: TransformResult | null = null;
   let error: Error | null = null;

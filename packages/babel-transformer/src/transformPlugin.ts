@@ -4,8 +4,8 @@ import { declare } from '@babel/helper-plugin-utils';
 import hash from '@emotion/hash';
 import { BabelPluginOptions } from './types';
 import { validateOptions } from './validateOptions';
-import { findUpSync } from 'find-up';
-import { dirname } from 'path';
+import * as findUp from 'find-up';
+import { dirname, relative } from 'path';
 import { readFileSync } from 'fs';
 
 type BabelPluginState = PluginPass & {
@@ -43,16 +43,21 @@ function createGlobalContextImportDeclaration() {
 function createGlobalContextCallExpression(
   expressionPath: NodePath<t.CallExpression>,
   packageJson: PackageJSON,
+  packageJsonPath: string,
   filePath: string,
 ) {
   const args = expressionPath.get('arguments').map(arg => arg.node);
   if (!expressionPath.parentPath.isVariableDeclarator()) {
     return expressionPath.node;
   }
+
+  // Use the relative path from package.json because the same package
+  // can be installed under different paths in node_modules if they are duplicated
+  const relativePath = relative(packageJsonPath, filePath);
   const id = expressionPath.parentPath.get('id') as NodePath<babel.types.Identifier>;
   return types.callExpression(types.identifier('__createGlobalContext'), [
     ...args,
-    types.stringLiteral(hash(`${filePath}@${id.node.name}`)),
+    types.stringLiteral(hash(`${relativePath}@${id.node.name}`)),
     types.stringLiteral(packageJson.name),
     types.stringLiteral(packageJson.version),
   ]);
@@ -80,7 +85,7 @@ export const transformPlugin = declare<Partial<BabelPluginOptions>, PluginObj<Ba
   validateOptions(pluginOptions);
 
   return {
-    name: 'global-context-babel-transformer',
+    name: 'global-context',
 
     pre() {
       this.importDeclarationPaths = [];
@@ -95,7 +100,7 @@ export const transformPlugin = declare<Partial<BabelPluginOptions>, PluginObj<Ba
           if (state.filename === undefined) {
             return;
           }
-          const packageJSONPath = findUpSync('package.json', { cwd: dirname(state.filename) });
+          const packageJSONPath = findUp.sync('package.json', { cwd: dirname(state.filename) });
           if (packageJSONPath === undefined) {
             return;
           }
@@ -110,7 +115,7 @@ export const transformPlugin = declare<Partial<BabelPluginOptions>, PluginObj<Ba
           if (state.expressionPaths) {
             for (const expressionPath of state.expressionPaths) {
               expressionPath.replaceWith(
-                createGlobalContextCallExpression(expressionPath, packageJSON, state.filename),
+                createGlobalContextCallExpression(expressionPath, packageJSON, packageJSONPath, state.filename),
               );
             }
           }
