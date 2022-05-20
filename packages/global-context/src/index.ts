@@ -5,8 +5,8 @@ type GlobalObject = typeof globalThis & Record<symbol, React.Context<any>>;
 const isBrowser = typeof window !== 'undefined';
 const globalObject: GlobalObject = isBrowser ? window : global;
 
-// Identifier for the symbol, for easy idenfitifaction of symbols created by this util
-// Useful for clearning global object during SSR reloads
+// Identifier for the symbol, for easy identification of symbols created by this util
+// Useful for clearing global object during SSR reloads
 const SYMBOL_NAMESPACE = 'global-context:';
 
 // During SSR the global object persists with the server process
@@ -15,6 +15,7 @@ if (!isBrowser && process.env.NODE_ENV !== 'production') {
   const globalSymbols = Object.getOwnPropertySymbols(globalObject);
   globalSymbols.forEach(sym => {
     if (Symbol.keyFor(sym)?.startsWith(SYMBOL_NAMESPACE)) {
+      // Cruft?
       console.log('deleting', sym);
       delete globalObject[sym];
     }

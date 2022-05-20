@@ -32,5 +32,6 @@ pluginTester({
   tests: [],
 
   plugin: transformPlugin,
+  // NOPE :P
   pluginName: '@griffel/babel-plugin-transform',
 });

@@ -1,4 +1,4 @@
-import { BabelPluginOptions } from '@global-context/babel-preset';
+import type { BabelPluginOptions } from '@global-context/babel-preset';
 import { getOptions } from 'loader-utils';
 import * as path from 'path';
 import * as webpack from 'webpack';
@@ -13,7 +13,7 @@ export function shouldTransformSourceCode(
   sourceCode: string,
   modules: WebpackLoaderOptions['modules'] | undefined,
 ): boolean {
-  // Fallback to "makeStyles" if options were not provided
+  // Fallback to "createContext" if options were not provided
   const imports = modules ? modules.map(module => module.importName).join('|') : 'createContext';
 
   return new RegExp(`\\b(${imports})`).test(sourceCode);
@@ -46,23 +46,21 @@ export function webpackLoader(
 
   const options = getOptions(this as any) as WebpackLoaderOptions;
 
+  // Uncomment me!
   // validate(configSchema, options, {
   //   name: '@griffel/webpack-loader',
   //   baseDataPath: 'options',
   // });
 
+  // I am feeling dumb, but why Webpack loader is needed?
+  // It can be just "babel-loader" + a single plugin
+  
   // Early return to handle cases when createContext() calls are not present, allows to avoid expensive invocation of Babel
   if (!shouldTransformSourceCode(sourceCode, options.modules)) {
     this.callback(null, sourceCode, inputSourceMap);
     return;
   }
-
-  // ⚠ "this._compilation" limits loaders compatibility, however there seems to be no other way to access Webpack's
-  // resolver.
-  // There is this.resolve(), but it's asynchronous. Another option is to read the webpack.config.js, but it won't work
-  // for programmatic usage. This API is used by many loaders/plugins, so hope we're safe for a while
-  const resolveOptionsFromWebpackConfig: webpack.ResolveOptions = this._compilation?.options.resolve || {};
-
+  
   let result: TransformResult | null = null;
   let error: Error | null = null;
 

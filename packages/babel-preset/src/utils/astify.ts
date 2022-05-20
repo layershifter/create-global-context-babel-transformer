@@ -1,5 +1,7 @@
 import { types as t } from '@babel/core';
 
+// This file can be deleted, right?
+
 /**
  * Transforms runtime literals into AST tree.
  */

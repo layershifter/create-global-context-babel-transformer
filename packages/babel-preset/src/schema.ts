@@ -4,6 +4,7 @@ export const configSchema: JSONSchema7 = {
   $schema: 'http://json-schema.org/schema',
   $id: 'babel-transformPlugin-options',
 
+  // Please update the schema
   type: 'object',
   properties: {
     modules: {

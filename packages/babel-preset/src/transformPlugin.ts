@@ -1,5 +1,5 @@
-import type { NodePath, PluginObj, PluginPass, types as t } from '@babel/core';
-import { types } from '@babel/core';
+import type { NodePath, PluginObj, PluginPass } from '@babel/core';
+import { types as t} from '@babel/core';
 import { declare } from '@babel/helper-plugin-utils';
 import hash from '@emotion/hash';
 import { BabelPluginOptions } from './types';
@@ -34,9 +34,9 @@ function isCreateContextCallee(
 }
 
 function createGlobalContextImportDeclaration() {
-  return types.importDeclaration(
-    [types.importSpecifier(types.identifier('__createGlobalContext'), types.identifier('createContext'))],
-    types.stringLiteral('@global-context/react'),
+  return t.importDeclaration(
+    [t.importSpecifier(t.identifier('__createGlobalContext'), t.identifier('createContext'))],
+    t.stringLiteral('@global-context/react'),
   );
 }
 
@@ -46,6 +46,7 @@ function createGlobalContextCallExpression(
   packageJsonPath: string,
   filePath: string,
 ) {
+  // Is there sense in args? `createContext` has a single argument AFAIR
   const args = expressionPath.get('arguments').map(arg => arg.node);
   if (!expressionPath.parentPath.isVariableDeclarator()) {
     return expressionPath.node;
@@ -54,12 +55,12 @@ function createGlobalContextCallExpression(
   // Use the relative path from package.json because the same package
   // can be installed under different paths in node_modules if they are duplicated
   const relativePath = relative(packageJsonPath, filePath);
-  const id = expressionPath.parentPath.get('id') as NodePath<babel.types.Identifier>;
-  return types.callExpression(types.identifier('__createGlobalContext'), [
+  const id = expressionPath.parentPath.get('id') as NodePath<t.Identifier>;
+  return t.callExpression(t.identifier('__createGlobalContext'), [
     ...args,
-    types.stringLiteral(hash(`${relativePath}@${id.node.name}`)),
-    types.stringLiteral(packageJson.name),
-    types.stringLiteral(packageJson.version),
+    t.stringLiteral(hash(`${relativePath}@${id.node.name}`)),
+    t.stringLiteral(packageJson.name),
+    t.stringLiteral(packageJson.version),
   ]);
 }
 
@@ -67,7 +68,7 @@ function createGlobalContextCallExpression(
  * Checks if import statement import createContext().
  */
 function hasReactImport(
-  path: NodePath<babel.types.ImportDeclaration>,
+  path: NodePath<t.ImportDeclaration>,
   modules: NonNullable<BabelPluginOptions['modules']>,
 ): boolean {
   return Boolean(modules.find(module => path.node.source.value === module.moduleSource));
@@ -94,9 +95,11 @@ export const transformPlugin = declare<Partial<BabelPluginOptions>, PluginObj<Ba
 
     visitor: {
       Program: {
+        // Cruft
         enter() {},
 
         exit(path, state) {
+          // There is no sense to do this on exit, it's usually better to apply changes in place
           if (state.filename === undefined) {
             return;
           }
@@ -104,9 +107,12 @@ export const transformPlugin = declare<Partial<BabelPluginOptions>, PluginObj<Ba
           if (packageJSONPath === undefined) {
             return;
           }
+          // Do it really handles require()? I don't see tests for it
           if (state.importDeclarationPaths!.length === 0 && !state.requireDeclarationPath) {
             return;
           }
+          // It's a brave assumption that each `package.json` will have `name` and `version`
+          // I suggest to at least validate this
           const packageJSON: PackageJSON = JSON.parse(readFileSync(packageJSONPath).toString());
 
           // Adds import for global context
@@ -122,6 +128,12 @@ export const transformPlugin = declare<Partial<BabelPluginOptions>, PluginObj<Ba
         },
       },
 
+      // Folks in XXX are doing:
+      // import * as React from 'react'
+      // const { createContext } = React
+      //
+      // I don't think that it handled
+      
       // eslint-disable-next-line @typescript-eslint/naming-convention
       ImportDeclaration(path, state) {
         if (hasReactImport(path, pluginOptions.modules)) {
